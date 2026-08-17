@@ -6,14 +6,41 @@ from auth import (
     create_jwt,
     exchange_session_id,
     get_current_user,
+    hash_password,
     new_user_id,
     public_user,
+    require_admin,
     verify_password,
 )
 from database import db
-from models import LoginInput, PreferencesInput, SessionInput
+from models import AdminCreate, LoginInput, PreferencesInput, SessionInput
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+@router.post("/admins", status_code=201)
+async def create_admin(data: AdminCreate, user: dict = Depends(require_admin)):
+    email = data.email.lower()
+    if await db.users.find_one({"email": email}, {"_id": 0}):
+        raise HTTPException(status_code=409, detail="email_already_registered")
+    admin = {
+        "user_id": new_user_id(),
+        "email": email,
+        "name": data.name.strip(),
+        "picture": "",
+        "role": "admin",
+        "language": "pt-BR",
+        "auth_provider": "password",
+        "password_hash": hash_password(data.password),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.users.insert_one(admin)
+    return public_user(admin)
+
+
+@router.get("/admins")
+async def list_admins(user: dict = Depends(require_admin)):
+    return await db.users.find({"role": "admin"}, {"_id": 0}).sort("name", 1).to_list(500)
 
 
 @router.post("/login")

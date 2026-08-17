@@ -12,6 +12,9 @@ export default function Settings() {
     const [loading, setLoading] = useState(true);
     const pendingSaveRef = useRef(null);
     const [confirmOpen, setConfirmOpen] = useState(false);
+    const [adminForm, setAdminForm] = useState({ name: "", email: "", password: "" });
+    const [admins, setAdmins] = useState([]);
+    const [adminError, setAdminError] = useState("");
 
     useEffect(() => {
         api.get("/settings")
@@ -20,7 +23,25 @@ export default function Settings() {
             .finally(() => setLoading(false));
     }, []);
 
+    useEffect(() => {
+        api.get("/auth/admins").then(({ data }) => setAdmins(data)).catch(() => {});
+    }, []);
+
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+    const setAdmin = (key) => (e) => setAdminForm((f) => ({ ...f, [key]: e.target.value }));
+
+    const createAdmin = async (event) => {
+        event.preventDefault();
+        setAdminError("");
+        try {
+            const { data } = await api.post("/auth/admins", adminForm);
+            setAdmins((current) => [...current, data].sort((a, b) => a.name.localeCompare(b.name)));
+            setAdminForm({ name: "", email: "", password: "" });
+            toast.success(t("settings.adminCreated"));
+        } catch (err) {
+            setAdminError(t(`errors.${apiErrorKey(err)}`));
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -112,6 +133,18 @@ export default function Settings() {
                     </form>
                 </section>
             )}
+
+            <section className="luxury-card p-6 space-y-5" data-testid="admin-management-section">
+                <div><h2 className="font-serif-display text-lg text-[#E5C158] font-semibold">{t("settings.adminManagement")}</h2><p className="mt-1 text-sm text-zinc-400">{t("settings.adminManagementSubtitle")}</p></div>
+                <form onSubmit={createAdmin} className="space-y-4">
+                    <Field label={t("settings.adminName")} htmlFor="admin-name"><input id="admin-name" data-testid="admin-name-input" required value={adminForm.name} onChange={setAdmin("name")} className="luxury-input w-full px-3 py-2 rounded-lg border text-sm outline-none" /></Field>
+                    <Field label={t("common.email")} htmlFor="admin-email"><input id="admin-email" data-testid="admin-email-input" type="email" required value={adminForm.email} onChange={setAdmin("email")} className="luxury-input w-full px-3 py-2 rounded-lg border text-sm outline-none" /></Field>
+                    <Field label={t("login.password")} htmlFor="admin-password"><input id="admin-password" data-testid="admin-password-input" type="password" minLength="8" required value={adminForm.password} onChange={setAdmin("password")} className="luxury-input w-full px-3 py-2 rounded-lg border text-sm outline-none" /></Field>
+                    {adminError && <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">{adminError}</p>}
+                    <button type="submit" data-testid="add-admin-btn" className="gold-btn rounded-lg px-5 py-2.5 text-sm">{t("settings.addAdmin")}</button>
+                </form>
+                {admins.length > 0 && <div className="border-t border-[#3A311D]/60 pt-4"><p className="mb-2 text-xs uppercase tracking-widest text-zinc-500">{t("settings.registeredAdmins")}</p><div className="space-y-2">{admins.map((admin) => <div key={admin.user_id} className="flex items-center justify-between rounded-lg border border-[#3A311D]/60 px-3 py-2 text-sm"><span className="text-zinc-200">{admin.name}</span><span className="text-zinc-500">{admin.email}</span></div>)}</div></div>}
+            </section>
 
             <p className="text-xs text-zinc-600">{t("settings.comingSoon")}</p>
 
