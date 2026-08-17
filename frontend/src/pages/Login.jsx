@@ -170,10 +170,8 @@ export default function Login() {
                         </svg>
                         {t("login.google")}
                     </button>}
-                    {localAuthEnabled && (
-                        <p className="text-xs text-zinc-500 text-center">
-                            {authMode === "register" ? t("login.passwordRequirements") : t(accountType === "client" ? "login.localClientHint" : "login.localAdminHint")}
-                        </p>
+                    {localAuthEnabled && authMode === "register" && (
+                        <p className="text-xs text-zinc-500 text-center">{t("login.passwordRequirements")}</p>
                     )}
                     {localAuthEnabled && <button type="button" onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAccountType(authMode === "login" ? "client" : "admin"); setError(""); }} className="w-full text-center text-xs text-[#E5C158] hover:text-white">
                         {authMode === "login" ? t("login.createAccount") : t("login.backToLogin")}
