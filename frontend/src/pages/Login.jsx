@@ -18,7 +18,7 @@ export default function Login() {
     const [authMode, setAuthMode] = useState("login");
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const localAuthEnabled = process.env.REACT_APP_LOCAL_AUTH === "true" || !process.env.REACT_APP_BACKEND_URL;
+    const localAuthEnabled = process.env.REACT_APP_LOCAL_AUTH === "true" || (!process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_LOCAL_AUTH !== "false");
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import api from "@/api";
 
 const AuthContext = createContext(null);
-const localAuthEnabled = process.env.REACT_APP_LOCAL_AUTH === "true" || !process.env.REACT_APP_BACKEND_URL;
+const localAuthEnabled = process.env.REACT_APP_LOCAL_AUTH === "true" || (!process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_LOCAL_AUTH !== "false");
 const localUser = {
     user_id: "local_admin",
     email: process.env.REACT_APP_LOCAL_EMAIL || "lmunozpupo@gmail.com",
@@ -57,11 +57,12 @@ export function AuthProvider({ children }) {
             const expectedPassword = process.env.REACT_APP_LOCAL_PASSWORD || "NaislAdmin2024!";
             const clients = JSON.parse(localStorage.getItem("salonapp_local_clients") || "[]");
             const client = clients.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
+            const defaultClient = role === "client" && email.toLowerCase() === localClient.email.toLowerCase() && password === (process.env.REACT_APP_LOCAL_CLIENT_PASSWORD || "Cliente2024!") ? localClient : null;
             const isAdmin = role === "admin" && email.toLowerCase() === expectedEmail.toLowerCase() && password === expectedPassword;
-            if (!isAdmin && !(role === "client" && client)) {
+            if (!isAdmin && !(role === "client" && (client || defaultClient))) {
                 throw { response: { data: { detail: "invalid_credentials" } } };
             }
-            const authenticatedUser = isAdmin ? localUser : { ...client, password: undefined };
+            const authenticatedUser = isAdmin ? localUser : { ...(client || defaultClient), password: undefined };
             localStorage.setItem("salonapp_local_user", JSON.stringify(authenticatedUser));
             setUser(authenticatedUser);
             return authenticatedUser;

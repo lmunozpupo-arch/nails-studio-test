@@ -1,8 +1,10 @@
 import logging
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from starlette.middleware.cors import CORSMiddleware
 
 from database import db, client
@@ -54,3 +56,12 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+FRONTEND_BUILD = Path(__file__).resolve().parent.parent / "frontend" / "build"
+
+@app.get("/{path:path}")
+async def frontend_fallback(path: str):
+    requested = FRONTEND_BUILD / path
+    if path and requested.is_file():
+        return FileResponse(requested)
+    return FileResponse(FRONTEND_BUILD / "index.html")

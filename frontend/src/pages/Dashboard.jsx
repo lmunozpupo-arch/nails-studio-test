@@ -49,7 +49,7 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-        if (process.env.REACT_APP_LOCAL_AUTH === "true" || !process.env.REACT_APP_BACKEND_URL) {
+        if (process.env.REACT_APP_LOCAL_AUTH === "true" || (!process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_LOCAL_AUTH !== "false")) {
             setLocalRequests(JSON.parse(localStorage.getItem("salonapp_client_requests") || "[]").filter((request) => request.status === "pending"));
         }
     }, []);

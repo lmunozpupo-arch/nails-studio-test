@@ -38,7 +38,7 @@ const STATUS_DOT = {
     completed: "bg-blue-400",
     cancelled: "bg-red-400",
 };
-const localMode = process.env.REACT_APP_LOCAL_AUTH === "true" || !process.env.REACT_APP_BACKEND_URL;
+const localMode = process.env.REACT_APP_LOCAL_AUTH === "true" || (!process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_LOCAL_AUTH !== "false");
 
 export default function Agenda() {
     const { t, language } = useLanguage();
