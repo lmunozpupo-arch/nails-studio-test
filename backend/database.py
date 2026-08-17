@@ -59,7 +59,11 @@ class Cursor:
         self.documents = documents
 
     def sort(self, key, direction=1):
-        self.documents.sort(key=lambda item: (item.get(key) is None, item.get(key)), reverse=direction < 0)
+        if isinstance(key, list):
+            for field, field_direction in reversed(key):
+                self.documents.sort(key=lambda item, field=field: (item.get(field) is None, item.get(field)), reverse=field_direction < 0)
+        else:
+            self.documents.sort(key=lambda item: (item.get(key) is None, item.get(key)), reverse=direction < 0)
         return self
 
     async def to_list(self, length=None):
