@@ -43,12 +43,6 @@ export default function Login() {
         }
     };
 
-    const handleGoogle = () => {
-        // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
-        const redirectUrl = window.location.origin + "/";
-        window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
-    };
-
     return (
         <div className="min-h-screen bg-[#0A0A0C] flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.08),transparent_55%)]" />
@@ -151,25 +145,6 @@ export default function Login() {
                         </div>
                         <button type="submit" data-testid="register-submit-btn" disabled={loading} className="gold-btn w-full py-2.5 rounded-lg text-sm disabled:opacity-60">{t("login.register")}</button>
                     </>}
-                    {!localAuthEnabled && <div className="flex items-center gap-3 text-xs text-zinc-500">
-                        <div className="flex-1 h-px bg-[#3A311D]" />
-                        {t("login.orContinueWith")}
-                        <div className="flex-1 h-px bg-[#3A311D]" />
-                    </div>}
-                    {!localAuthEnabled && <button
-                        type="button"
-                        data-testid="login-google-btn"
-                        onClick={handleGoogle}
-                        className="w-full py-2.5 rounded-lg text-sm border border-[#3A311D] text-zinc-200 hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/5 transition-all duration-200 flex items-center justify-center gap-2"
-                    >
-                        <svg className="w-4 h-4" viewBox="0 0 24 24">
-                            <path fill="#EA4335" d="M12 5.04c1.62 0 3.06.56 4.2 1.64l3.12-3.12C17.46 1.8 14.96.72 12 .72 7.44.72 3.52 3.44 1.68 7.44l3.66 2.84C6.24 7.2 8.88 5.04 12 5.04z" />
-                            <path fill="#4285F4" d="M23.28 12.26c0-.82-.08-1.6-.2-2.36H12v4.52h6.32c-.28 1.44-1.1 2.66-2.32 3.48l3.56 2.76c2.08-1.92 3.72-4.76 3.72-8.4z" />
-                            <path fill="#FBBC05" d="M5.34 14.28a7.1 7.1 0 0 1 0-4.56L1.68 6.88a11.28 11.28 0 0 0 0 10.24l3.66-2.84z" />
-                            <path fill="#34A853" d="M12 23.28c3.04 0 5.6-1 7.46-2.72l-3.56-2.76c-1 .68-2.28 1.08-3.9 1.08-3.12 0-5.76-2.16-6.66-5.04l-3.66 2.84c1.84 4 5.76 6.6 11.32 6.6z" />
-                        </svg>
-                        {t("login.google")}
-                    </button>}
                     {authMode === "register" && (
                         <p className="text-xs text-zinc-500 text-center">{t("login.passwordRequirements")}</p>
                     )}
