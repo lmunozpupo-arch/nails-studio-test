@@ -80,7 +80,7 @@ export default function Login() {
                     <h2 className="font-serif-display text-xl text-white text-center">
                         {authMode === "register" ? t("login.createClientAccount") : t("login.welcome")}
                     </h2>
-                    {authMode === "login" && localAuthEnabled && (
+                    {authMode === "login" && (
                         <div className="grid grid-cols-2 gap-2 rounded-lg bg-black/20 p-1" role="tablist" aria-label="Tipo de acceso">
                             <button type="button" role="tab" aria-selected={accountType === "admin"} onClick={() => setAccountType("admin")} className={`rounded-md py-2 text-xs transition-colors ${accountType === "admin" ? "bg-[#D4AF37] text-black font-semibold" : "text-zinc-400 hover:text-white"}`}>
                                 {t("login.adminAccount")}
@@ -170,12 +170,12 @@ export default function Login() {
                         </svg>
                         {t("login.google")}
                     </button>}
-                    {localAuthEnabled && authMode === "register" && (
+                    {authMode === "register" && (
                         <p className="text-xs text-zinc-500 text-center">{t("login.passwordRequirements")}</p>
                     )}
-                    {localAuthEnabled && <button type="button" onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAccountType(authMode === "login" ? "client" : "admin"); setError(""); }} className="w-full text-center text-xs text-[#E5C158] hover:text-white">
+                    <button type="button" onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAccountType(authMode === "login" ? "client" : "admin"); setError(""); }} className="w-full text-center text-xs text-[#E5C158] hover:text-white">
                         {authMode === "login" ? t("login.createAccount") : t("login.backToLogin")}
-                    </button>}
+                    </button>
                 </form>
             </div>
         </div>

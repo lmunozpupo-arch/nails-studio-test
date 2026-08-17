@@ -75,7 +75,10 @@ export function AuthProvider({ children }) {
 
     const registerClient = useCallback(async (name, email, password) => {
         if (!localAuthEnabled) {
-            throw new Error("Client registration requires the backend");
+            const { data } = await api.post("/auth/register-client", { name, email, password });
+            localStorage.setItem("salonapp_token", data.token);
+            setUser(data.user);
+            return data.user;
         }
         const clients = JSON.parse(localStorage.getItem("salonapp_local_clients") || "[]");
         const normalizedEmail = email.toLowerCase();

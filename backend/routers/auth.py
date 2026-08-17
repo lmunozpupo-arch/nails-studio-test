@@ -13,9 +13,29 @@ from auth import (
     verify_password,
 )
 from database import db
-from models import AdminCreate, LoginInput, PreferencesInput, SessionInput
+from models import AdminCreate, ClientRegister, LoginInput, PreferencesInput, SessionInput
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+@router.post("/register-client", status_code=201)
+async def register_client(data: ClientRegister):
+    email = data.email.lower()
+    if await db.users.find_one({"email": email}, {"_id": 0}):
+        raise HTTPException(status_code=409, detail="email_already_registered")
+    client = {
+        "user_id": new_user_id(),
+        "email": email,
+        "name": data.name.strip(),
+        "picture": "",
+        "role": "client",
+        "language": "pt-BR",
+        "auth_provider": "password",
+        "password_hash": hash_password(data.password),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.users.insert_one(client)
+    return {"user": public_user(client), "token": create_jwt(client["user_id"])}
 
 
 @router.post("/admins", status_code=201)
