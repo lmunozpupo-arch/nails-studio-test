@@ -1,0 +1,11 @@
+{
+  "name": "nails-studio-test-deployment",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend install --legacy-peer-deps && npm --prefix frontend run build",
+    "start": "npx serve -s frontend/build -l $PORT"
+  },
+  "dependencies": {
+    "serve": "14.2.4"
+  }
+}
