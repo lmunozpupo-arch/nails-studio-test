@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "npm --prefix frontend install --legacy-peer-deps && npm --prefix frontend run build",
-    "start": "npx serve -s frontend/build -l $PORT"
+    "start": "npx serve -s frontend/build -l tcp://0.0.0.0:$PORT"
   },
   "dependencies": {
     "serve": "14.2.4"
