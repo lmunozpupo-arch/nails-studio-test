@@ -1,0 +1,126 @@
+{
+  "project_name": "SalonApp - Nail's Designer M&A Studio",
+  "archetype": "LUXURY NOIR & GOLD SAAS DASHBOARD (High Density & Executive Polish)",
+  "app_type": "dashboard",
+  "design_philosophy": {
+    "tone": "Elegance, Exclusivity, Professionalism, Sophistication, Modernity, Premium Beauty SaaS",
+    "theme_preference": "Dark Luxury (Noir #0A0A0C background, Warm Obsidian #121216 surfaces, Brushed Gold/Bronze #D4AF37 accents, Crisp White text)",
+    "anti_patterns": [
+      "No generic Vercel light mode or standard blue SaaS templates",
+      "Do NOT turn the UI predominantly pink; rose/pink is strictly a subtle secondary accent for delicate tags or light glows",
+      "No full screen flat grey backgrounds — use rich tinted obsidian black with subtle 1px metallic gold/bronze borders",
+      "No hidden mobile functionality — tables convert seamlessly into rich responsive glass cards on mobile",
+      "No unstyled select/date inputs — use custom styled datepicker/calendar & dropdown components",
+      "No transparent sticky headers without backdrop blur"
+    ]
+  },
+  "colors": {
+    "background": {
+      "main": "#0A0A0C",
+      "sidebar": "#0E0E12",
+      "card": "#14141A",
+      "card_hover": "#1C1C24",
+      "modal_overlay": "rgba(5, 5, 7, 0.85)"
+    },
+    "accents": {
+      "gold_primary": "#D4AF37",
+      "gold_hover": "#E5C158",
+      "gold_gradient": "linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%)",
+      "bronze_muted": "#8C6D31",
+      "bronze_border": "#3A311D",
+      "gold_glow": "rgba(212, 175, 55, 0.15)",
+      "rose_accent": "#F472B6",
+      "rose_subtle_glow": "rgba(244, 114, 182, 0.1)"
+    },
+    "text": {
+      "primary": "#F4F4F6",
+      "secondary": "#A1A1AA",
+      "muted": "#71717A",
+      "gold_heading": "#E5C158"
+    },
+    "status": {
+      "confirmed": {
+        "bg": "rgba(34, 197, 94, 0.1)",
+        "text": "#4ADE80",
+        "border": "rgba(34, 197, 94, 0.2)"
+      },
+      "pending": {
+        "bg": "rgba(234, 179, 8, 0.1)",
+        "text": "#FACC15",
+        "border": "rgba(234, 179, 8, 0.2)"
+      },
+      "completed": {
+        "bg": "rgba(59, 130, 246, 0.1)",
+        "text": "#60A5FA",
+        "border": "rgba(59, 130, 246, 0.2)"
+      },
+      "cancelled": {
+        "bg": "rgba(239, 68, 68, 0.1)",
+        "text": "#F87171",
+        "border": "rgba(239, 68, 68, 0.2)"
+      }
+    }
+  },
+  "typography": {
+    "heading_font": "'Cormorant Garamond', 'Playfair Display', serif",
+    "body_font": "'Plus Jakarta Sans', 'Inter', sans-serif",
+    "mono_font": "'JetBrains Mono', monospace",
+    "hierarchy": {
+      "h1_hero": "text-4xl sm:text-5xl font-bold tracking-tight text-white",
+      "h2_section": "text-2xl sm:text-3xl font-semibold tracking-tight text-white font-serif",
+      "h3_card": "text-lg sm:text-xl font-medium text-white",
+      "body": "text-sm text-zinc-300 leading-relaxed",
+      "caption": "text-xs text-zinc-400 uppercase tracking-widest"
+    }
+  },
+  "branding_logo": {
+    "description": "Circular black emblem with gold/bronze art-deco rim, white NA handwritten monogram center, NAIL'S DESIGNER and M&A STUDIO text on upper and lower arcs.",
+    "locations": ["Sidebar Top Header", "Mobile Sticky Top Bar", "Login Screen Hero Frame"],
+    "style": "W-10 h-10 or w-12 h-12 rounded-full border border-[#D4AF37]/50 shadow-[0_0_15px_rgba(212,175,55,0.2)] bg-black p-1 flex items-center justify-center"
+  },
+  "navigation": {
+    "sidebar_items": [
+      { "id": "dashboard", "label_pt": "Dashboard", "label_es": "Tablero", "label_en": "Dashboard", "icon": "LayoutDashboard" },
+      { "id": "clientes", "label_pt": "Clientes", "label_es": "Clientes", "label_en": "Clients", "icon": "Users" },
+      { "id": "servicos", "label_pt": "Serviços", "label_es": "Servicios", "label_en": "Services", "icon": "Sparkles" },
+      { "id": "profissionais", "label_pt": "Profissionais", "label_es": "Profesionales", "label_en": "Professionals", "icon": "UserCheck" },
+      { "id": "agenda", "label_pt": "Agenda", "label_es": "Agenda", "label_en": "Schedule", "icon": "Calendar" },
+      { "id": "pagamentos", "label_pt": "Pagamentos", "label_es": "Pagos", "label_en": "Payments", "icon": "CreditCard" },
+      { "id": "configuracoes", "label_pt": "Configurações", "label_es": "Configuración", "label_en": "Settings", "icon": "Settings" }
+    ],
+    "trilingual_selector": {
+      "languages": [
+        { "code": "pt-BR", "flag": "🇧🇷", "label": "Português (BR)" },
+        { "code": "es", "flag": "🇪🇸", "label": "Español" },
+        { "code": "en", "flag": "🇺🇸", "label": "English" }
+      ]
+    }
+  },
+  "layout_and_responsive": {
+    "grid_modes": {
+      "dashboard_stats": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6",
+      "main_content": "grid-cols-1 lg:grid-cols-12 gap-6",
+      "mobile_adaptations": "Tables hide on mobile (<768px) and switch to stacked luxury cards with gold borders and clear action triggers."
+    }
+  },
+  "media": {
+    "hero_salon_bg": "https://images.unsplash.com/photo-1772322586785-3a34772cbc61?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "nail_art_sample_1": "https://images.unsplash.com/photo-1777287216954-2b4b22bb6bf2?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "manicure_procedure": "https://images.pexels.com/photos/6135675/pexels-photo-6135675.jpeg?auto=compress&cs=tinysrgb&w=940",
+    "geometric_nail_art": "https://images.pexels.com/photos/4965824/pexels-photo-4965824.jpeg?auto=compress&cs=tinysrgb&w=940"
+  },
+  "instructions_to_main_agent": [
+    "Ensure the entire app is rich dark noir with metallic gold accents, giving an immediate executive salon software feel.",
+    "Implement language state globally (pt-BR, es, en) with language selector available both on the Login screen and top bar.",
+    "Ensure all CRUD views (Clientes, Serviços, Profissionais, Pagamentos) have search, filters, modal forms, confirmation dialogs, empty states, loading skeletons, and sonner toasts.",
+    "Agenda calendar view should feature Day, Week, and Month view toggles as well as filter by professional and status.",
+    "Mobile layout must convert tabular data into card grids with generous tap targets.",
+    "Every key action button and input field must feature a distinct data-testid (e.g., data-testid='add-client-btn', data-testid='appointment-submit-btn')."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Never use generic white backgrounds or plain grey borders.",
+    "Ensure interactive state contrast (e.g. hover:bg-[#D4AF37] hover:text-black).",
+    "Use framer-motion or subtle CSS transitions for dialogs, drawer sliding on mobile, and stat counts.",
+    "All modal triggers must require explicit confirmation when deleting or cancelling records."
+  ]
+}

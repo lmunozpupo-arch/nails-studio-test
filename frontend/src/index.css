@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 240 10% 4%;
+        --foreground: 240 5% 96%;
+        --card: 240 9% 8%;
+        --card-foreground: 240 5% 96%;
+        --popover: 240 9% 7%;
+        --popover-foreground: 240 5% 96%;
+        --primary: 45 65% 52%;
+        --primary-foreground: 240 10% 4%;
+        --secondary: 240 6% 12%;
+        --secondary-foreground: 240 5% 96%;
+        --muted: 240 6% 12%;
+        --muted-foreground: 240 4% 65%;
+        --accent: 45 65% 52%;
+        --accent-foreground: 240 10% 4%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 45 25% 18%;
+        --input: 45 20% 22%;
+        --ring: 45 65% 52%;
+        --radius: 0.625rem;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .font-serif-display {
+        font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    }
+}
+
+@layer components {
+    .gold-text {
+        background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .gold-btn {
+        @apply bg-[#D4AF37] text-black font-semibold transition-all duration-200;
+    }
+    .gold-btn:hover:not(:disabled) {
+        @apply bg-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.35)];
+    }
+    .luxury-card {
+        @apply bg-[#14141A] border border-[#3A311D] rounded-xl;
+    }
+    .luxury-input {
+        @apply bg-[#0E0E12] border-[#3A311D] text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-[#D4AF37]/50 focus-visible:border-[#D4AF37]/60;
+    }
+    .sidebar-item {
+        @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-zinc-400 transition-all duration-200 hover:text-[#E5C158] hover:bg-[#D4AF37]/10;
+    }
+    .sidebar-item-active {
+        @apply text-[#E5C158] bg-[#D4AF37]/10 border border-[#D4AF37]/30 shadow-[inset_0_0_12px_rgba(212,175,55,0.08)];
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0A0A0C;
+}
+::-webkit-scrollbar-thumb {
+    background: #3A311D;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8C6D31;
+}
+
+::selection {
+    background: rgba(212, 175, 55, 0.3);
+    color: #fff;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-slide {
+    animation: fadeSlideIn 0.35s ease-out both;
+}
